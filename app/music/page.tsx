@@ -1,23 +1,25 @@
 export default function MusicPage() {
   return (
     <div className="card">
-      <h1 className="h1" style={{ fontSize: 34 }}>Music</h1>
+      <h1 className="h1" style={{ fontSize: 34 }}>
+        Be On The Look Out, New Music Coming Soon
+      </h1>
+
       <p className="muted" style={{ marginTop: 10 }}>
-        Listen on your favorite platform.
+        Stay tuned for upcoming releases.
       </p>
 
-      <div style={{ marginTop: 16 }}>
-        <h2 className="h2">Streaming Links</h2>
-        <ul style={{ margin: 0, paddingLeft: 18 }}>
-          <li className="muted">Spotify (add link)</li>
-          <li className="muted">Apple Music (add link)</li>
-          <li className="muted">YouTube (add link)</li>
-        </ul>
-      </div>
-
-      <div style={{ marginTop: 16 }}>
-        <h2 className="h2">Embeds</h2>
-        <p className="muted">Next step: drop in Spotify/YouTube embed blocks for instant polish.</p>
+      <div style={{ marginTop: 20 }}>
+        <iframe
+          data-testid="embed-iframe"
+          style={{ borderRadius: 12 }}
+          src="https://open.spotify.com/embed/artist/7gl3QOgIew8NLttIjus3sS?utm_source=generator"
+          width="100%"
+          height="352"
+          frameBorder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        />
       </div>
     </div>
   );
