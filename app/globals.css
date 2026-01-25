@@ -9,33 +9,45 @@
   --muted: rgba(255, 255, 255, 0.72);
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
 
 body {
   margin: 0;
   color: var(--text);
   background: #000;
   overflow-x: hidden;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-/* Full-page background image */
+/* =============================
+   Background Image (FULL PAGE)
+   - Shows clearly behind everything
+============================= */
 .site-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
   background-image:
-    radial-gradient(circle at 20% 0%, rgba(0,0,0,0.35), rgba(0,0,0,0.88) 55%),
-    radial-gradient(circle at 80% 20%, rgba(0,0,0,0.25), rgba(0,0,0,0.92) 60%),
+    radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75) 55%),
+    radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.82) 60%),
     url("/bribackground.jpg");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   filter: saturate(1.05) contrast(1.02);
 }
 
-/* Shell above the background */
+/* =============================
+   Layout Shell
+============================= */
 .site-shell {
   position: relative;
   z-index: 1;
@@ -51,13 +63,14 @@ body {
   padding: 0 18px;
 }
 
+/* ✅ Header/Footer should NOT be glass.
+   They should be transparent so the background image shows. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 10;
-  backdrop-filter: blur(10px);
-  background: rgba(0,0,0,0.55);
-  border-bottom: 1px solid var(--border);
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .brand-row {
@@ -89,11 +102,13 @@ body {
   padding: 8px 10px;
   border: 1px solid transparent;
   border-radius: 10px;
+  background: transparent;
 }
+
 .nav-link:hover {
   color: var(--text);
   border-color: var(--border);
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .site-main {
@@ -102,9 +117,8 @@ body {
 }
 
 .site-footer {
-  border-top: 1px solid var(--border);
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
   padding: 18px 0;
 }
 
@@ -115,13 +129,18 @@ body {
   flex-wrap: wrap;
 }
 
+/* =============================
+   ✅ Glass ONLY ON CARDS
+============================= */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 18px;
+  backdrop-filter: blur(10px);
 }
 
+/* Typography helpers */
 .h1 {
   font-size: 44px;
   line-height: 1.05;
@@ -136,17 +155,38 @@ body {
   margin: 0 0 10px;
 }
 
-.muted { color: var(--muted); margin: 0; }
-.link { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.muted {
+  color: var(--muted);
+  margin: 0;
+}
+
+.link {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Grid helpers */
 .grid {
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(12, 1fr);
 }
-.col-7 { grid-column: span 7; }
-.col-5 { grid-column: span 5; }
+
+.col-7 {
+  grid-column: span 7;
+}
+
+.col-5 {
+  grid-column: span 5;
+}
 
 @media (max-width: 860px) {
-  .col-7, .col-5 { grid-column: span 12; }
-  .h1 { font-size: 36px; }
+  .col-7,
+  .col-5 {
+    grid-column: span 12;
+  }
+  .h1 {
+    font-size: 36px;
+  }
 }
