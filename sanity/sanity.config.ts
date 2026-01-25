@@ -1,19 +1,8 @@
-// sanity.config.ts
-import { defineConfig } from "sanity";
-import { structureTool } from "sanity/structure";
-import { visionTool } from "@sanity/vision";
-import { schemaTypes } from "./sanity/schemaTypes";
+"use client";
 
-export default defineConfig({
-  name: "default",
-  title: "bri-website-blog",
+import { NextStudio } from "next-sanity/studio";
+import config from "../../../sanity.config.ts";
 
-  projectId: "m3m672rb",
-  dataset: "production",
-
-  plugins: [structureTool(), visionTool()],
-
-  schema: {
-    types: schemaTypes,
-  },
-});
+export default function StudioPage() {
+  return <NextStudio config={config} />;
+}
