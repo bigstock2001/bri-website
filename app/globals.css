@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --card: rgba(10, 10, 10, 0.72);
-  --border: rgba(255, 255, 255, 0.14);
-  --text: rgba(255, 255, 255, 0.92);
-  --muted: rgba(255, 255, 255, 0.72);
+  --card: rgba(10, 10, 10, 0.68);
+  --border: rgba(255, 255, 255, 0.18);
+  --text: rgba(255, 255, 255, 0.95);
+  --muted: rgba(255, 255, 255, 0.75);
 }
 
 * {
@@ -23,30 +23,34 @@ body {
   color: var(--text);
   background: #000;
   overflow-x: hidden;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
-    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 /* =============================
-   Background Image (FULL PAGE)
-   - Shows clearly behind everything
+   BACKGROUND IMAGE (LIGHTENED)
 ============================= */
 .site-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
+
+  /* Lighter overlays so image shows */
   background-image:
-    radial-gradient(circle at 20% 0%, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75) 55%),
-    radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.82) 60%),
+    radial-gradient(circle at 20% 10%, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.55) 55%),
+    radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.65) 60%),
     url("/bribackground.jpg");
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: saturate(1.05) contrast(1.02);
+
+  /* Boost visibility without washing it out */
+  filter: brightness(1.18) contrast(1.05) saturate(1.08);
 }
 
 /* =============================
-   Layout Shell
+   LAYOUT SHELL
 ============================= */
 .site-shell {
   position: relative;
@@ -63,14 +67,17 @@ body {
   padding: 0 18px;
 }
 
-/* ✅ Header/Footer should NOT be glass.
-   They should be transparent so the background image shows. */
+/* Header & footer stay transparent */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: transparent;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.25)
+  );
+  border-bottom: 1px solid var(--border);
 }
 
 .brand-row {
@@ -100,25 +107,26 @@ body {
   color: var(--muted);
   font-size: 14px;
   padding: 8px 10px;
-  border: 1px solid transparent;
   border-radius: 10px;
-  background: transparent;
 }
 
 .nav-link:hover {
   color: var(--text);
-  border-color: var(--border);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .site-main {
   flex: 1;
-  padding: 34px 0 44px;
+  padding: 36px 0 46px;
 }
 
 .site-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  background: transparent;
+  border-top: 1px solid var(--border);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.25)
+  );
   padding: 18px 0;
 }
 
@@ -130,7 +138,7 @@ body {
 }
 
 /* =============================
-   ✅ Glass ONLY ON CARDS
+   GLASS — CARDS ONLY
 ============================= */
 .card {
   background: var(--card);
@@ -140,7 +148,7 @@ body {
   backdrop-filter: blur(10px);
 }
 
-/* Typography helpers */
+/* Typography */
 .h1 {
   font-size: 44px;
   line-height: 1.05;
@@ -169,7 +177,7 @@ body {
 /* Grid helpers */
 .grid {
   display: grid;
-  gap: 14px;
+  gap: 16px;
   grid-template-columns: repeat(12, 1fr);
 }
 
@@ -186,6 +194,7 @@ body {
   .col-5 {
     grid-column: span 12;
   }
+
   .h1 {
     font-size: 36px;
   }
