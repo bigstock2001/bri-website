@@ -8,6 +8,13 @@ export default defineConfig({
   title: "bri-website-blog",
   projectId: "m3m672rb",
   dataset: "production",
+
+  // ✅ Critical: tell Studio it lives at /studio
+  basePath: "/studio",
+
   plugins: [structureTool(), visionTool()],
-  schema: { types: schemaTypes },
+
+  schema: {
+    types: schemaTypes,
+  },
 });
