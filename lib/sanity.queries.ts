@@ -1,3 +1,4 @@
+// lib/sanity.queries.ts
 export const POSTS_QUERY = `*[
   _type == "post" &&
   defined(slug.current)
@@ -18,5 +19,6 @@ export const POST_BY_SLUG_QUERY = `*[
   "slug": slug.current,
   publishedAt,
   excerpt,
+  mainImage,
   body
 }`;
