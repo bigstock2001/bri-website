@@ -11,21 +11,32 @@ export default async function BlogPage() {
     <div className="card">
       <h1 className="h1" style={{ fontSize: 34 }}>Blog</h1>
 
-      {posts.length === 0 && (
-        <p className="muted" style={{ marginTop: 10 }}>
-          No posts yet.
-        </p>
-      )}
+      <div style={{ marginTop: 18, display: "grid", gap: 12 }}>
+        {posts?.map((p) => {
+          const slug = typeof p.slug === "string" ? p.slug : "";
+          return (
+            <div key={p._id} className="card" style={{ padding: 14 }}>
+              <div style={{ fontWeight: 800, fontSize: 18 }}>{p.title}</div>
 
-      <ul style={{ marginTop: 20 }}>
-        {posts.map((post) => (
-          <li key={post._id} style={{ marginBottom: 12 }}>
-            <Link href={`/blog/${post.slug.current}`} className="link">
-              {post.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+              {p.excerpt ? (
+                <div className="muted" style={{ marginTop: 6 }}>
+                  {p.excerpt}
+                </div>
+              ) : null}
+
+              <div style={{ marginTop: 10 }}>
+                {slug ? (
+                  <Link className="link" href={`/blog/${slug}`}>
+                    Read more →
+                  </Link>
+                ) : (
+                  <span className="muted">Missing slug</span>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
