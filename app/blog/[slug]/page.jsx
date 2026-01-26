@@ -1,11 +1,11 @@
-// app/blog/[slug]/page.jsx
+// app/blog/[slug]/page.tsx
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
-import { sanityClient } from "@/lib/sanity.client";
-import { POST_BY_SLUG_QUERY } from "@/lib/sanity.queries";
+import { sanityClient } from "../../../lib/sanity.client";
+import { POST_BY_SLUG_QUERY } from "../../../lib/sanity.queries";
 
-function formatDate(iso) {
+function formatDate(iso?: string) {
   if (!iso) return "";
   try {
     return new Date(iso).toLocaleDateString(undefined, {
@@ -18,7 +18,7 @@ function formatDate(iso) {
   }
 }
 
-export default async function BlogPostPage({ params }) {
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const slug = params?.slug;
   const post = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
 
@@ -41,11 +41,7 @@ export default async function BlogPostPage({ params }) {
       ) : null}
 
       <div style={{ marginTop: 18, lineHeight: 1.7 }}>
-        {post.body ? (
-          <PortableText value={post.body} />
-        ) : (
-          <p className="muted">No content.</p>
-        )}
+        {post.body ? <PortableText value={post.body} /> : <p className="muted">No content.</p>}
       </div>
 
       <div style={{ marginTop: 18 }}>

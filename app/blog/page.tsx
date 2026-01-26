@@ -1,9 +1,9 @@
-// app/blog/page.jsx
+// app/blog/page.tsx
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity.client";
-import { POSTS_QUERY } from "@/lib/sanity.queries";
+import { sanityClient } from "../../lib/sanity.client";
+import { POSTS_QUERY } from "../../lib/sanity.queries";
 
-function formatDate(iso) {
+function formatDate(iso?: string) {
   if (!iso) return "";
   try {
     return new Date(iso).toLocaleDateString(undefined, {
@@ -21,15 +21,21 @@ export default async function BlogPage() {
 
   return (
     <div className="card">
-      <h1 className="h1" style={{ fontSize: 34 }}>Blog</h1>
+      <h1 className="h1" style={{ fontSize: 34 }}>
+        Blog
+      </h1>
 
-      {(!posts || posts.length === 0) ? (
+      {!posts || posts.length === 0 ? (
         <p className="muted" style={{ marginTop: 10 }}>
-          No posts yet. Add your first post in <Link href="/studio" className="link">/studio</Link>.
+          No posts yet. Add your first post in{" "}
+          <Link href="/studio" className="link">
+            /studio
+          </Link>
+          .
         </p>
       ) : (
         <div style={{ marginTop: 16, display: "grid", gap: 14 }}>
-          {posts.map((p) => (
+          {posts.map((p: any) => (
             <article
               key={p._id}
               className="card"
