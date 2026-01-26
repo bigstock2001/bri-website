@@ -1,4 +1,3 @@
-// app/blog/page.tsx
 import Link from "next/link";
 import { sanityClient } from "../../lib/sanity.client";
 import { POSTS_QUERY } from "../../lib/sanity.queries";
@@ -36,11 +35,7 @@ export default async function BlogPage() {
       ) : (
         <div style={{ marginTop: 16, display: "grid", gap: 14 }}>
           {posts.map((p: any) => (
-            <article
-              key={p._id}
-              className="card"
-              style={{ padding: 16, borderRadius: 16 }}
-            >
+            <article key={p._id} className="card" style={{ padding: 16, borderRadius: 16 }}>
               <div className="muted" style={{ fontSize: 13 }}>
                 {formatDate(p.publishedAt)}
               </div>

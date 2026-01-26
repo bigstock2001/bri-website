@@ -1,4 +1,3 @@
-// app/blog/[slug]/page.tsx
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
@@ -19,9 +18,7 @@ function formatDate(iso?: string) {
 }
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const slug = params?.slug;
-  const post = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
-
+  const post = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug: params.slug });
   if (!post) return notFound();
 
   return (
