@@ -1,8 +1,6 @@
-// lib/sanity.queries.ts
 export const POSTS_QUERY = `*[
   _type == "post" &&
-  defined(slug.current) &&
-  publishedAt <= now()
+  defined(slug.current)
 ] | order(publishedAt desc) {
   _id,
   title,
