@@ -31,31 +31,49 @@ export default async function BlogPage() {
         </p>
       ) : (
         <div style={{ marginTop: 16, display: "grid", gap: 14 }}>
-          {posts.map((p) => (
-            <article key={p._id} className="card" style={{ padding: 16, borderRadius: 16 }}>
-              <div className="muted" style={{ fontSize: 13 }}>
-                {formatDate(p.publishedAt)}
-              </div>
+          {posts.map((post) => {
+            const slug = post?.slug; // <-- IMPORTANT: string from query ("slug": slug.current)
 
-              <h2 className="h1" style={{ fontSize: 22, marginTop: 6 }}>
-                <Link href={`/blog/${p.slug}`} className="link">
-                  {p.title}
-                </Link>
-              </h2>
+            return (
+              <article
+                key={post._id}
+                className="card"
+                style={{ padding: 16, borderRadius: 16 }}
+              >
+                <div className="muted" style={{ fontSize: 13 }}>
+                  {formatDate(post.publishedAt)}
+                </div>
 
-              {p.excerpt ? (
-                <p className="muted" style={{ marginTop: 8 }}>
-                  {p.excerpt}
-                </p>
-              ) : null}
+                <h2 className="h1" style={{ fontSize: 22, marginTop: 6 }}>
+                  {slug ? (
+                    <Link href={`/blog/${slug}`} className="link">
+                      {post.title}
+                    </Link>
+                  ) : (
+                    post.title
+                  )}
+                </h2>
 
-              <div style={{ marginTop: 10 }}>
-                <Link href={`/blog/${p.slug}`} className="link">
-                  Read more →
-                </Link>
-              </div>
-            </article>
-          ))}
+                {post.excerpt ? (
+                  <p className="muted" style={{ marginTop: 8 }}>
+                    {post.excerpt}
+                  </p>
+                ) : null}
+
+                <div style={{ marginTop: 10 }}>
+                  {slug ? (
+                    <Link href={`/blog/${slug}`} className="link">
+                      Read more →
+                    </Link>
+                  ) : (
+                    <span className="muted">
+                      Missing slug — open this post in Studio and click “Generate”.
+                    </span>
+                  )}
+                </div>
+              </article>
+            );
+          })}
         </div>
       )}
     </div>
