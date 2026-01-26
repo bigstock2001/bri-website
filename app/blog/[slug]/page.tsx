@@ -1,39 +1,60 @@
-import { client } from "@/lib/sanity.client";
-import { POST_BY_SLUG_QUERY } from "@/lib/sanity.queries";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { PortableText } from "@portabletext/react";
+import { sanityClient } from "../../../lib/sanity.client";
+import { POST_BY_SLUG_QUERY } from "../../../lib/sanity.queries";
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
+export const dynamic = "force-dynamic";
 
-export default async function BlogPostPage({ params }: Props) {
-  const { slug } = params;
-
-  if (!slug) {
-    notFound();
+function formatDate(iso?: string) {
+  if (!iso) return "";
+  try {
+    return new Date(iso).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  } catch {
+    return "";
   }
+}
 
-  const post = await client.fetch(POST_BY_SLUG_QUERY, { slug });
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const slug = params?.slug;
+  if (!slug) return notFound();
 
-  if (!post) {
-    notFound();
-  }
+  const post: any = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
+  if (!post) return notFound();
 
   return (
-    <article className="card">
-      <h1 className="h1">{post.title}</h1>
+    <div className="card">
+      <div className="muted" style={{ fontSize: 13 }}>
+        {formatDate(post.publishedAt)}
+      </div>
 
-      {post.publishedAt && (
-        <p className="muted" style={{ marginTop: 6 }}>
-          {new Date(post.publishedAt).toLocaleDateString()}
+      <h1 className="h1" style={{ fontSize: 34, marginTop: 8 }}>
+        {post.title}
+      </h1>
+
+      {post.excerpt ? (
+        <p className="muted" style={{ marginTop: 10 }}>
+          {post.excerpt}
         </p>
-      )}
+      ) : null}
 
-      {post.excerpt && (
-        <p style={{ marginTop: 20 }}>{post.excerpt}</p>
-      )}
-    </article>
+      <div style={{ marginTop: 18, lineHeight: 1.7 }}>
+        {post.body ? <PortableText value={post.body} /> : null}
+      </div>
+
+      <div style={{ marginTop: 18 }}>
+        <Link href="/blog" className="link">
+          ← Back to Blog
+        </Link>
+      </div>
+    </div>
   );
 }
