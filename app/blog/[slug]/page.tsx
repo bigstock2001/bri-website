@@ -1,57 +1,39 @@
-// app/blog/[slug]/page.tsx
-import Link from "next/link";
+import { client } from "@/lib/sanity.client";
+import { POST_BY_SLUG_QUERY } from "@/lib/sanity.queries";
 import { notFound } from "next/navigation";
-import { PortableText } from "@portabletext/react";
-import { sanityClient } from "../../../lib/sanity.client";
-import { POST_BY_SLUG_QUERY } from "../../../lib/sanity.queries";
 
-export const dynamic = "force-dynamic";
+type Props = {
+  params: {
+    slug: string;
+  };
+};
 
-function formatDate(iso?: string) {
-  if (!iso) return "";
-  try {
-    return new Date(iso).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  } catch {
-    return "";
+export default async function BlogPostPage({ params }: Props) {
+  const { slug } = params;
+
+  if (!slug) {
+    notFound();
   }
-}
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const slug = params?.slug;
-  if (!slug) return notFound();
+  const post = await client.fetch(POST_BY_SLUG_QUERY, { slug });
 
-  const post: any = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
-  if (!post) return notFound();
+  if (!post) {
+    notFound();
+  }
 
   return (
-    <div className="card">
-      <div className="muted" style={{ fontSize: 13 }}>
-        {formatDate(post.publishedAt)}
-      </div>
+    <article className="card">
+      <h1 className="h1">{post.title}</h1>
 
-      <h1 className="h1" style={{ fontSize: 34, marginTop: 8 }}>
-        {post.title}
-      </h1>
-
-      {post.excerpt ? (
-        <p className="muted" style={{ marginTop: 10 }}>
-          {post.excerpt}
+      {post.publishedAt && (
+        <p className="muted" style={{ marginTop: 6 }}>
+          {new Date(post.publishedAt).toLocaleDateString()}
         </p>
-      ) : null}
+      )}
 
-      <div style={{ marginTop: 18, lineHeight: 1.7 }}>
-        {post.body ? <PortableText value={post.body} /> : <p className="muted">No content.</p>}
-      </div>
-
-      <div style={{ marginTop: 18 }}>
-        <Link href="/blog" className="link">
-          ← Back to Blog
-        </Link>
-      </div>
-    </div>
+      {post.excerpt && (
+        <p style={{ marginTop: 20 }}>{post.excerpt}</p>
+      )}
+    </article>
   );
 }
