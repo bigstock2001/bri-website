@@ -17,21 +17,12 @@ function formatDate(iso?: string) {
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug?: string } }) {
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const slug = params?.slug;
 
-  if (!slug || typeof slug !== "string") {
-    return notFound();
-  }
+  if (!slug) return notFound();
 
-  let post: any = null;
-
-  try {
-    post = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
-  } catch (e) {
-    // If Sanity errors, don't crash the whole app
-    return notFound();
-  }
+  const post = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
 
   if (!post) return notFound();
 

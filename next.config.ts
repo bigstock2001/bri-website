@@ -1,13 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // This prevents Sanity Studio's TypeScript files inside /sanity
-  // from breaking the Next.js production build on Vercel.
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  // Not recommended long-term, but leaving this since you already use it
+  // and it keeps the build from failing on TS issues.
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
