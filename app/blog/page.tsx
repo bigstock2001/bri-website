@@ -34,31 +34,45 @@ export default async function BlogPage() {
         </p>
       ) : (
         <div style={{ marginTop: 16, display: "grid", gap: 14 }}>
-          {posts.map((p: any) => (
-            <article key={p._id} className="card" style={{ padding: 16, borderRadius: 16 }}>
-              <div className="muted" style={{ fontSize: 13 }}>
-                {formatDate(p.publishedAt)}
-              </div>
+          {posts.map((p: any) => {
+            const hasSlug = typeof p.slug === "string" && p.slug.length > 0;
 
-              <h2 className="h1" style={{ fontSize: 22, marginTop: 6 }}>
-                <Link href={`/blog/${p.slug}`} className="link">
-                  {p.title}
-                </Link>
-              </h2>
+            return (
+              <article key={p._id} className="card" style={{ padding: 16, borderRadius: 16 }}>
+                <div className="muted" style={{ fontSize: 13 }}>
+                  {formatDate(p.publishedAt)}
+                </div>
 
-              {p.excerpt ? (
-                <p className="muted" style={{ marginTop: 8 }}>
-                  {p.excerpt}
-                </p>
-              ) : null}
+                <h2 className="h1" style={{ fontSize: 22, marginTop: 6 }}>
+                  {hasSlug ? (
+                    <Link href={`/blog/${p.slug}`} className="link">
+                      {p.title}
+                    </Link>
+                  ) : (
+                    p.title
+                  )}
+                </h2>
 
-              <div style={{ marginTop: 10 }}>
-                <Link href={`/blog/${p.slug}`} className="link">
-                  Read more →
-                </Link>
-              </div>
-            </article>
-          ))}
+                {p.excerpt ? (
+                  <p className="muted" style={{ marginTop: 8 }}>
+                    {p.excerpt}
+                  </p>
+                ) : null}
+
+                {hasSlug ? (
+                  <div style={{ marginTop: 10 }}>
+                    <Link href={`/blog/${p.slug}`} className="link">
+                      Read more →
+                    </Link>
+                  </div>
+                ) : (
+                  <p className="muted" style={{ marginTop: 10 }}>
+                    (Missing slug — open this post in Studio and click “Generate”.)
+                  </p>
+                )}
+              </article>
+            );
+          })}
         </div>
       )}
     </div>
