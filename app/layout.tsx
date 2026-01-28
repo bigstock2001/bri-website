@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Bri — Official Website",
+  title: "Brie — Official Website",
   description: "Shows, music, blog, and booking for Bri.",
 };
 
@@ -33,7 +33,7 @@ export default function RootLayout({
             <div className="container">
               <div className="brand-row">
                 <Link href="/" className="brand">
-                  Bri
+                  Brie
                 </Link>
 
                 <nav className="nav">
