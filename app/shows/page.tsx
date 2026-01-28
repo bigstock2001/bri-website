@@ -46,7 +46,7 @@ export default function ShowsPage() {
         >
           <img
             src="/Dates.jpg"
-            alt="Bri show dates schedule"
+            alt="Brie show dates schedule"
             style={{
               width: "100%",
               height: "auto",
@@ -59,7 +59,7 @@ export default function ShowsPage() {
         <div className="card" style={{ marginTop: 14 }}>
           <h2 className="h2">Booking</h2>
           <p className="muted">
-            Want Bri at your venue or event? Head to the Contact page to book.
+            Want Brie at your venue or event? Head to the Contact page to book.
           </p>
         </div>
       </div>
