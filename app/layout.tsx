@@ -33,7 +33,7 @@ export default function RootLayout({
             <div className="container">
               <div className="brand-row">
                 <Link href="/" className="brand">
-                  Bri
+                  Brie
                 </Link>
 
                 <nav className="nav">
