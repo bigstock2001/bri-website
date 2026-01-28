@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Bri — Official Website",
+  title: "Brie — Official Website",
   description: "Shows, music, blog, and booking for Bri.",
 };
 
