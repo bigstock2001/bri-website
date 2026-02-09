@@ -22,7 +22,7 @@ export default function ContactPage() {
 
         <div style={{ marginTop: 14, display: "flex", gap: 10, flexWrap: "wrap" }}>
           <a className="nav-link" href="mailto:BriellaSteinerBooking@gmail.com">
-            Email Bri
+            Email Brie
           </a>
           <Link className="nav-link" href="/shows">
             View Show Dates
