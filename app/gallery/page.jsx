@@ -42,77 +42,60 @@ export default function GalleryPage() {
           A collage of moments, highlights, and visuals from across the brand.
         </p>
 
-        <div className="masonry-gallery">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className={`masonry-item ${
-                index % 5 === 0 ? "tilt-left" : index % 4 === 0 ? "tilt-right" : ""
-              }`}
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                width={900}
-                height={1200}
-                className="gallery-image"
-                priority={index < 3}
-              />
-            </div>
-          ))}
+        <div
+          style={{
+            columnCount: 1,
+            columnGap: "18px",
+          }}
+          className="gallery-masonry"
+        >
+          {images.map((image, index) => {
+            const rotation =
+              index % 5 === 0 ? "-1deg" : index % 4 === 0 ? "1deg" : "0deg";
+
+            return (
+              <div
+                key={index}
+                style={{
+                  breakInside: "avoid",
+                  WebkitColumnBreakInside: "avoid",
+                  marginBottom: "18px",
+                  borderRadius: "18px",
+                  overflow: "hidden",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  background: "rgba(255,255,255,0.04)",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.22)",
+                  transform: `rotate(${rotation})`,
+                }}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={900}
+                  height={1200}
+                  priority={index < 3}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    display: "block",
+                  }}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <style jsx>{`
-        .masonry-gallery {
-          column-count: 1;
-          column-gap: 18px;
-        }
-
-        .masonry-item {
-          break-inside: avoid;
-          margin-bottom: 18px;
-          border-radius: 18px;
-          overflow: hidden;
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          background: rgba(255, 255, 255, 0.04);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .masonry-item:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 16px 38px rgba(0, 0, 0, 0.3);
-        }
-
-        .gallery-image {
-          width: 100%;
-          height: auto;
-          display: block;
-        }
-
-        .tilt-left {
-          transform: rotate(-1deg);
-        }
-
-        .tilt-right {
-          transform: rotate(1deg);
-        }
-
-        .tilt-left:hover,
-        .tilt-right:hover {
-          transform: translateY(-4px) rotate(0deg);
-        }
-
+      <style jsx global>{`
         @media (min-width: 640px) {
-          .masonry-gallery {
-            column-count: 2;
+          .gallery-masonry {
+            column-count: 2 !important;
           }
         }
 
         @media (min-width: 1024px) {
-          .masonry-gallery {
-            column-count: 3;
+          .gallery-masonry {
+            column-count: 3 !important;
           }
         }
       `}</style>
