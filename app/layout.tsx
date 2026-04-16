@@ -11,6 +11,7 @@ const nav = [
   { href: "/", label: "Home" },
   { href: "/shows", label: "Shows" },
   { href: "/music", label: "Music" },
+  { href: "/gallery", label: "Gallery" }, // ✅ Added here
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -51,8 +52,15 @@ export default function RootLayout({
 
           <footer className="site-footer">
             <div className="container footer-row">
-              <p className="muted">© {new Date().getFullYear()} Bri. All rights reserved.</p>
-              <p className="muted">For booking: <Link className="link" href="/contact">Contact</Link></p>
+              <p className="muted">
+                © {new Date().getFullYear()} Bri. All rights reserved.
+              </p>
+              <p className="muted">
+                For booking:{" "}
+                <Link className="link" href="/contact">
+                  Contact
+                </Link>
+              </p>
             </div>
           </footer>
         </div>
