@@ -1,0 +1,149 @@
+.wrap {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.intro {
+  max-width: 760px;
+  margin: 10px auto 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.tile {
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .a {
+    grid-column: 1 / span 3;
+    margin-top: 0;
+  }
+
+  .b {
+    grid-column: 4 / span 2;
+    margin-top: 30px;
+  }
+
+  .c {
+    grid-column: 6 / span 1;
+    margin-top: 95px;
+  }
+
+  .d {
+    grid-column: 1 / span 2;
+    margin-top: -20px;
+  }
+
+  .e {
+    grid-column: 3 / span 2;
+    margin-top: 35px;
+  }
+
+  .f {
+    grid-column: 5 / span 2;
+    margin-top: -10px;
+  }
+
+  .g {
+    grid-column: 1 / span 2;
+    margin-top: 10px;
+  }
+
+  .h {
+    grid-column: 3 / span 3;
+    margin-top: -30px;
+  }
+
+  .i {
+    grid-column: 6 / span 1;
+    margin-top: 40px;
+  }
+
+  .j {
+    grid-column: 2 / span 3;
+    margin-top: -15px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .a {
+    grid-column: 1 / span 3;
+    margin-top: 0;
+  }
+
+  .b {
+    grid-column: 4 / span 2;
+    margin-top: 18px;
+  }
+
+  .c {
+    grid-column: 6 / span 2;
+    margin-top: 85px;
+  }
+
+  .d {
+    grid-column: 2 / span 2;
+    margin-top: -40px;
+  }
+
+  .e {
+    grid-column: 4 / span 2;
+    margin-top: 30px;
+  }
+
+  .f {
+    grid-column: 6 / span 3;
+    margin-top: -20px;
+  }
+
+  .g {
+    grid-column: 1 / span 2;
+    margin-top: 0;
+  }
+
+  .h {
+    grid-column: 3 / span 3;
+    margin-top: -45px;
+  }
+
+  .i {
+    grid-column: 6 / span 1;
+    margin-top: 28px;
+  }
+
+  .j {
+    grid-column: 7 / span 2;
+    margin-top: -24px;
+  }
+}
