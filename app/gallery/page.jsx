@@ -23,19 +23,19 @@ export default function GalleryPage() {
     <div className="card">
       <div
         style={{
-          maxWidth: 1200,
+          maxWidth: "1200px",
           margin: "0 auto",
           textAlign: "center",
         }}
       >
-        <h1 className="h1" style={{ marginBottom: 12 }}>
+        <h1 className="h1" style={{ marginBottom: "12px" }}>
           Gallery
         </h1>
 
         <p
           className="muted"
           style={{
-            maxWidth: 760,
+            maxWidth: "760px",
             margin: "0 auto 32px auto",
           }}
         >
@@ -45,60 +45,39 @@ export default function GalleryPage() {
         <div
           style={{
             columnCount: 1,
-            columnGap: "18px",
+            columnGap: "20px",
           }}
-          className="gallery-masonry"
         >
-          {images.map((image, index) => {
-            const rotation =
-              index % 5 === 0 ? "-1deg" : index % 4 === 0 ? "1deg" : "0deg";
-
-            return (
-              <div
-                key={index}
+          {images.map((image, index) => (
+            <div
+              key={index}
+              style={{
+                breakInside: "avoid",
+                WebkitColumnBreakInside: "avoid",
+                marginBottom: "20px",
+                borderRadius: "16px",
+                overflow: "hidden",
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.22)",
+              }}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={1200}
+                height={1600}
+                priority={index < 3}
                 style={{
-                  breakInside: "avoid",
-                  WebkitColumnBreakInside: "avoid",
-                  marginBottom: "18px",
-                  borderRadius: "18px",
-                  overflow: "hidden",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  background: "rgba(255,255,255,0.04)",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.22)",
-                  transform: `rotate(${rotation})`,
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
                 }}
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={900}
-                  height={1200}
-                  priority={index < 3}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    display: "block",
-                  }}
-                />
-              </div>
-            );
-          })}
+              />
+            </div>
+          ))}
         </div>
       </div>
-
-      <style jsx global>{`
-        @media (min-width: 640px) {
-          .gallery-masonry {
-            column-count: 2 !important;
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .gallery-masonry {
-            column-count: 3 !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }
