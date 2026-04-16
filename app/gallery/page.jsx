@@ -1,21 +1,49 @@
 import Image from "next/image";
 
-const images = [
-  { src: "/gallery/gallery1.jpg", alt: "Gallery image 1" },
-  { src: "/gallery/gallery2.jpg", alt: "Gallery image 2" },
-  { src: "/gallery/gallery3.jpg", alt: "Gallery image 3" },
-  { src: "/gallery/gallery4.jpg", alt: "Gallery image 4" },
-  { src: "/gallery/gallery5.jpg", alt: "Gallery image 5" },
-  { src: "/gallery/gallery6.jpg", alt: "Gallery image 6" },
-  { src: "/gallery/gallery7.jpg", alt: "Gallery image 7" },
-  { src: "/gallery/gallery8.jpg", alt: "Gallery image 8" },
-  { src: "/gallery/gallery9.jpg", alt: "Gallery image 9" },
-  { src: "/gallery/gallery10.jpg", alt: "Gallery image 10" },
+const column1 = [
+  { src: "/gallery/gallery1.jpg", alt: "Gallery image 1", size: "large" },
+  { src: "/gallery/gallery4.jpg", alt: "Gallery image 4", size: "small" },
+  { src: "/gallery/gallery7.jpg", alt: "Gallery image 7", size: "medium" },
+  { src: "/gallery/gallery10.jpg", alt: "Gallery image 10", size: "small" },
 ];
+
+const column2 = [
+  { src: "/gallery/gallery2.jpg", alt: "Gallery image 2", size: "small" },
+  { src: "/gallery/gallery5.jpg", alt: "Gallery image 5", size: "medium" },
+  { src: "/gallery/gallery8.jpg", alt: "Gallery image 8", size: "large" },
+];
+
+const column3 = [
+  { src: "/gallery/gallery3.jpg", alt: "Gallery image 3", size: "medium" },
+  { src: "/gallery/gallery6.jpg", alt: "Gallery image 6", size: "large" },
+  { src: "/gallery/gallery9.jpg", alt: "Gallery image 9", size: "small" },
+];
+
+function GalleryCard({ src, alt, size, priority = false }) {
+  const sizeClass =
+    size === "large"
+      ? "gallery-card-large"
+      : size === "medium"
+      ? "gallery-card-medium"
+      : "gallery-card-small";
+
+  return (
+    <div className={`gallery-card ${sizeClass}`}>
+      <Image
+        src={src}
+        alt={alt}
+        width={1200}
+        height={1600}
+        priority={priority}
+        className="gallery-image"
+      />
+    </div>
+  );
+}
 
 export const metadata = {
   title: "Gallery",
-  description: "A collage of moments, highlights, and visuals.",
+  description: "A scrapbook-style gallery of moments, highlights, and visuals.",
 };
 
 export default function GalleryPage() {
@@ -23,7 +51,7 @@ export default function GalleryPage() {
     <div className="card">
       <div
         style={{
-          maxWidth: "1200px",
+          maxWidth: "1320px",
           margin: "0 auto",
           textAlign: "center",
         }}
@@ -35,47 +63,49 @@ export default function GalleryPage() {
         <p
           className="muted"
           style={{
-            maxWidth: "760px",
-            margin: "0 auto 32px auto",
+            maxWidth: "820px",
+            margin: "0 auto 36px auto",
           }}
         >
           A collage of moments, highlights, and visuals from across the brand.
         </p>
 
-        <div
-          style={{
-            columnCount: 1,
-            columnGap: "20px",
-          }}
-        >
-          {images.map((image, index) => (
-            <div
-              key={index}
-              style={{
-                breakInside: "avoid",
-                WebkitColumnBreakInside: "avoid",
-                marginBottom: "20px",
-                borderRadius: "16px",
-                overflow: "hidden",
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.22)",
-              }}
-            >
-              <Image
+        <div className="scrapbook-grid">
+          <div className="scrapbook-column scrapbook-offset-1">
+            {column1.map((image, index) => (
+              <GalleryCard
+                key={image.src}
                 src={image.src}
                 alt={image.alt}
-                width={1200}
-                height={1600}
-                priority={index < 3}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  display: "block",
-                }}
+                size={image.size}
+                priority={index === 0}
               />
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div className="scrapbook-column scrapbook-offset-2">
+            {column2.map((image, index) => (
+              <GalleryCard
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                size={image.size}
+                priority={index === 0}
+              />
+            ))}
+          </div>
+
+          <div className="scrapbook-column scrapbook-offset-3">
+            {column3.map((image, index) => (
+              <GalleryCard
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                size={image.size}
+                priority={index === 0}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
