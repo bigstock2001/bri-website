@@ -14,6 +14,17 @@ const images = [
   { src: "/gallery/gallery10.jpg", alt: "Gallery image 10", cls: "j" },
 ];
 
+const videos = [
+  {
+    title: "Briella Steiner Video 1",
+    youtubeId: "BaumMPEcJtw",
+  },
+  {
+    title: "Briella Steiner Video 2",
+    youtubeId: "4WxbhncIAF4",
+  },
+];
+
 export const metadata = {
   title: "Gallery",
   description: "A scrapbook-style gallery of moments, highlights, and visuals.",
@@ -30,7 +41,40 @@ export default function GalleryPage() {
           </p>
         </div>
 
-        <div className={styles.grid}>
+        {/* VIDEO SECTION */}
+        <div style={{ marginTop: 30 }}>
+          <h2 className="h2">Videos</h2>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: 20,
+              marginTop: 16,
+            }}
+          >
+            {videos.map((video) => (
+              <div key={video.youtubeId}>
+                <iframe
+                  width="100%"
+                  height="215"
+                  style={{ borderRadius: 12 }}
+                  src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                  title={video.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+                <p className="muted" style={{ marginTop: 8 }}>
+                  {video.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* IMAGE GRID */}
+        <div className={styles.grid} style={{ marginTop: 30 }}>
           {images.map((image, index) => (
             <div
               key={image.src}
